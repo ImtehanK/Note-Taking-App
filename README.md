@@ -3,7 +3,7 @@ In progress
 Utilizing Swift programming language 
 
 Updates:
-Imte - March 6 - added an edit note to code files
+Josh - March 6 - added an edit note to code files
 
 
 Current bugs: 
