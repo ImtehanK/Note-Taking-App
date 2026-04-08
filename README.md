@@ -3,7 +3,8 @@ In progress
 Utilizing Swift programming language 
 
 Updates:
-Josh - March 6 - added an edit note to code files
+Josh - April 8 - added feature to EditNoteView and Item
+
 
 
 Current bugs: 
