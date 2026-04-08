@@ -13,11 +13,11 @@ final class Item {
     var timestamp: Date
     var text: String = ""
     var pinned: Bool = false
-    
+    var folder: Folder?
+
     init(timestamp: Date, text: String = "") {
         self.timestamp = timestamp
         self.text = text
         self.pinned = false
     }
 }
-
