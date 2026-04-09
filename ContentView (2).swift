@@ -116,6 +116,17 @@ struct ContentView: View {
                                     draftText = item.text
                                 }
                                 .contextMenu {
+                                    // Color picker submenu
+                                    Menu("Change Color") {
+                                        ForEach(NoteColor.allCases, id: \.self) { color in
+                                            Button {
+                                                item.colorName = color.rawValue
+                                                try? modelContext.save()
+                                            } label: {
+                                                Text(color.displayName)
+                                            }
+                                        }
+                                    }
                                     Button {
                                         item.pinned.toggle()
                                         try? modelContext.save()
@@ -266,17 +277,14 @@ struct ContentView: View {
                     .toolbar {
                         ToolbarItem(placement: .primaryAction) {
                             Button {
-                                if let selected = selection {
-                                    selected.pinned.toggle()
-                                    try? modelContext.save()
-                                }
+                                selected.pinned.toggle()
+                                try? modelContext.save()
                             } label: {
                                 Label(
-                                    selection?.pinned == true ? "Unpin" : "Pin",
-                                    systemImage: selection?.pinned == true ? "pin.slash" : "pin"
+                                    selected.pinned ? "Unpin" : "Pin",
+                                    systemImage: selected.pinned ? "pin.slash" : "pin"
                                 )
                             }
-                            .disabled(selection == nil)
                         }
                         ToolbarItem(placement: .primaryAction) {
                             Button(role: .destructive) {
@@ -284,7 +292,6 @@ struct ContentView: View {
                             } label: {
                                 Label("Delete", systemImage: "trash")
                             }
-                            .disabled(selection == nil)
                             .confirmationDialog("Delete this note?", isPresented: $showDeleteConfirm, titleVisibility: .visible) {
                                 Button("Delete", role: .destructive) { performDeleteSelected() }
                                 Button("Cancel", role: .cancel) {}
@@ -383,11 +390,13 @@ struct NoteCard: View {
     }
 
     var body: some View {
+        let color = item.noteColor
+
         Button(action: onTap) {
             VStack(alignment: .leading, spacing: 0) {
                 Text(preview)
                     .font(.system(size: 14, weight: .regular))
-                    .foregroundStyle(.primary)
+                    .foregroundStyle(color.foreground)
                     .lineLimit(6)
                     .multilineTextAlignment(.leading)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -396,30 +405,27 @@ struct NoteCard: View {
                 Spacer(minLength: 0)
 
                 Divider()
+                    .background(color.divider)
                     .opacity(0.4)
 
                 HStack {
                     Text(item.timestamp, format: Date.FormatStyle(date: .abbreviated, time: .omitted))
                         .font(.system(size: 11))
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(color.secondaryForeground)
                     Spacer()
                     if item.pinned {
                         Image(systemName: "pin.fill")
                             .font(.system(size: 10))
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(color.secondaryForeground)
                     }
                 }
                 .padding(.horizontal, 14)
                 .padding(.vertical, 10)
             }
             .frame(height: 180)
-            .background(.background)
+            .background(color.background)
             .clipShape(RoundedRectangle(cornerRadius: 14))
-            .shadow(color: .black.opacity(0.07), radius: 6, x: 0, y: 2)
-            .overlay(
-                RoundedRectangle(cornerRadius: 14)
-                    .strokeBorder(.separator.opacity(0.5), lineWidth: 0.5)
-            )
+            .shadow(color: color.background.opacity(0.4), radius: 6, x: 0, y: 3)
         }
         .buttonStyle(.plain)
     }
