@@ -1,0 +1,23 @@
+Test Case 1: Create a Note
+Action: Click the + button in the toolbar.
+Expected Result: A new note card appears in the grid immediately with a randomly assigned color. The detail pane switches to the new empty note, ready to type. If a folder is selected, the note is automatically assigned to it.
+
+Test Case 2: Edit a Note
+Action: Select a note from the grid and type in the text editor on the right.
+Expected Result: The note updates in real time as you type. Changes are saved automatically — no save button is needed. The card preview in the grid updates to reflect the new text. Navigating away and returning shows the content is fully preserved.
+
+Test Case 3: Delete a Note
+Action: Select a note and tap the trash icon in the detail pane toolbar, or right click a card and choose Delete.
+Expected Result: A confirmation dialog appears before anything is deleted. Once the user confirms, the note is removed from the grid with an animation. The app then either selects the next available note or shows the empty state.
+
+Test Case 4: Create a Folder
+Action: Switch to the Folders tab, then tap the folder+ icon in the toolbar.
+Expected Result: A new folder named "Untitled Folder" appears in the folder list and is immediately selected. The name can be edited inline by typing directly in the list row.
+
+Test Case 5: Assign a Note to a Folder
+Action: In the Folders tab, select a folder, then create a new note with the "+" button.
+Expected Result: The new note is automatically assigned to the selected folder. A folder badge (folder icon + name) appears on the note card. The note only appears when that folder is selected, and shows up in the All tab.
+
+Test Case 6: Search Notes
+Action: Tap the search bar and enter text.
+Expected Result: The grid filters in real time to show only notes whose text, date, or folder name starts with the search query. Clearing the search restores all notes. If no notes match, the empty state is displayed.
