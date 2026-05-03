@@ -5,6 +5,7 @@ Utilizing Swift programming language
 Updates:
 Josh - April 8 - added feature to EditNoteView and Item
 Imtehan - April 8 - made two new files (folder and NoteColor+SwiftUI)
+Imtehan - May 2 - created a new file for test cases that appear on report
 
 
 Current bugs: 
